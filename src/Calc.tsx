@@ -3,23 +3,33 @@ import math from './services/math'
 
 export default function () {
   const [expression, setExpresion] = React.useState('')
+  const [completed, setCompleted] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const type = (char: string) => {
-    if (char === 'CE') {
-      return setExpresion('')
+    if (completed) {
+      if (['CE', '√'].includes(char)) {
+        char = ''
+      }
+      setCompleted(false)
+      setExpresion(char)
+    } else {
+      if (char === 'CE') {
+        return setExpresion('')
+      }
+      if (char === '√') {
+        return setExpresion(`sqrt(${expression})`)
+      }
+      setExpresion(expression + char)
     }
-    if (char === '√') {
-      return setExpresion(`sqrt(${expression})`)
-    }
-    setExpresion(expression + char)
   }
   const evaluate = async () => {
     setLoading(true)
     try {
       const result = await math(expression)
-      setExpresion(result)
+      setExpresion(`${expression}=${result}`)
+      setCompleted(true)
     } catch (error: any) {
-      setExpresion('Error')
+      setExpresion(`${expression}=Error`)
     }
     setLoading(false)
   }
@@ -27,7 +37,7 @@ export default function () {
     ['1', '2', '3', '('],
     ['4', '5', '6', ')'],
     ['7', '8', '9', , '√'],
-    ['9', '.', 'CE', '!'],
+    ['0', '.', 'CE', '!'],
     ['+', '-', '*', '/']
   ].map((row, index) => {
     return (
