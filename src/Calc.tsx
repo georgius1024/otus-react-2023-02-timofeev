@@ -28,7 +28,7 @@ export default function () {
       const result = await math(expression)
       setExpresion(`${expression}=${result}`)
       setCompleted(true)
-    } catch (error: any) {
+    } catch {
       setExpresion(`${expression}=Error`)
     }
     setLoading(false)
