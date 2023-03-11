@@ -1,0 +1,76 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  color: #333;
+  background-image: url('./assets/wallpaper.jpg');
+  background-size: cover;
+}
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  background-color: #fff;
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h1 {
+    font-size: 48px;
+    text-align: center;
+    margin: 0px auto;
+  }
+  .display {
+    margin: 12px 0;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    width: calc(96px * 4);
+    min-height: 48px;
+    padding: 0 24px;
+  }
+  .numpad {
+    display: flex;
+    flex-direction: column;
+    .numpad-row {
+      display: flex;
+      justify-content: center;
+      flex-direction: row;
+      .numpad-button {
+        cursor: pointer;
+        flex-grow: 1;
+        display: block;
+        border: 1px solid #ccc;
+        max-width: 96px;
+        height: 48px;
+      }
+    }
+    .action {
+      margin-top: 12px;
+      cursor: pointer;
+      display: block;
+      border: 1px solid #ccc;
+      width: calc(96px * 4);
+      align-self: center;
+      height: 48px;
+    }
+  }
+  &.loading {
+    filter: blur(2px);
+    pointer-events: none;
+  }
+}
