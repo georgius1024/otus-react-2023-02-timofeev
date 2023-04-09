@@ -80,7 +80,7 @@ function App() {
     rejecting: rejected?.col === node.col && rejected?.row == node.row,
     onClick: nodeClickHandler,
   });
-  const nodes = chart.map((node, index) => <Node {...nodeProps(node)} />);
+  const nodes = chart.map((node) => <Node {...nodeProps(node)} />);
   return (
     <div className="App">
       <h1>Board game prototype</h1>
