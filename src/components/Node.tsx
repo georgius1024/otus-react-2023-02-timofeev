@@ -16,8 +16,8 @@ const NODE_SIZE = 64;
 
 export default function Node(props: NodeProps) {
   const nodeStyle = {
-    left: `${props.col * props.dx - NODE_SIZE / 2}px`,
-    top: `${props.row * props.dy - NODE_SIZE / 2}px`,
+    left: `${(props.col + 0.5) * props.dx - NODE_SIZE / 2}px`,
+    top: `${(props.row + 0.5) * props.dy - NODE_SIZE / 2}px`,
     width: `${NODE_SIZE}px`,
     height: `${NODE_SIZE}px`,
     fontSize: `${NODE_SIZE * 0.66}px`,

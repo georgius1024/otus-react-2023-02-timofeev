@@ -12,14 +12,14 @@ const DOT_SIZE = 48;
 
 export default function Canvas(props: CanvasProps) {
   const canvasStyle = {
-    width: `${(props.cols - 1) * props.dx}px`,
-    height: `${(props.rows - 1) * props.dy}px`,
+    width: `${(props.cols) * props.dx}px`,
+    height: `${(props.rows) * props.dy}px`,
   };
 
   const cellStyle = (row: number, col: number) => {
     return {
-      left: `${col * props.dx - DOT_SIZE / 2}px`,
-      top: `${row * props.dy - DOT_SIZE / 2}px`,
+      left: `${(col + 0.5) * props.dx - DOT_SIZE / 2}px`,
+      top: `${(row + 0.5) * props.dy - DOT_SIZE / 2}px`,
       width: `${DOT_SIZE}px`,
       height: `${DOT_SIZE}px`,
     };
