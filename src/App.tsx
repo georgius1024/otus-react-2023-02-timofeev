@@ -1,9 +1,8 @@
 import { useState } from "react";
-import "@/App.css";
+import "@/App.scss";
 import Palette from "@/components/Palette";
 import Canvas from "@/components/Canvas";
 import Node from "@/components/Node";
-import { setTimeout } from "timers";
 
 type Sample = {
   color: string;
@@ -48,7 +47,7 @@ function App() {
       );
       if (clickedNode) {
         setRejected(clickedNode);
-        window.setTimeout(() => setRejected(null), 1000);
+        setTimeout(() => setRejected(null), 1000);
         return;
       }
 
@@ -84,6 +83,7 @@ function App() {
   const nodes = chart.map((node, index) => <Node {...nodeProps(node)} />);
   return (
     <div className="App">
+      <h1>Board game prototype</h1>
       <Palette onClick={paletteClickHandler} />
       <br></br>
       <div className="board">

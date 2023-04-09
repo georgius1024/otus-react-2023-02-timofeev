@@ -13,9 +13,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    cols: 10,
-    rows: 10,
-    dx: 50,
-    dy: 50,
+    cols: 6,
+    rows: 6,
+    dx: 70,
+    dy: 70,
   },
 };
