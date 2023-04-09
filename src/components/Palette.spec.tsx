@@ -1,20 +1,12 @@
 import { render, screen } from "@testing-library/react";
 import { vi, expect } from "vitest";
-import Node from "@/components/Node";
+import Palette from "@/components/Palette";
 
-describe("Node", () => {
+describe("Palette", () => {
   const clickHandler = vi.fn();
   beforeEach(() => {
     render(
-      <Node
-        col={2}
-        row={2}
-        dx={50}
-        dy={50}
-        color={"red"}
-        symbol={"#"}
-        background={"red"}
-        rejecting={false}
+      <Palette
         onClick={clickHandler}
       />
     );
@@ -26,9 +18,9 @@ describe("Node", () => {
     screen.debug();
   });
   it("dot clicks emits events", async () => {
-    const node = await screen.findByText("#");
-    expect(node).toBeVisible();
-    node.click();
+    const Palette = await screen.findByText('❌');
+    expect(Palette).toBeVisible();
+    Palette.click();
     expect(clickHandler).toHaveBeenCalled();
   });
 });

@@ -8,7 +8,7 @@ type CanvasProps = {
   onClick: clickHandler;
 };
 
-const DOT_SIZE = 6;
+const DOT_SIZE = 48;
 
 export default function Canvas(props: CanvasProps) {
   const canvasStyle = {
@@ -33,7 +33,7 @@ export default function Canvas(props: CanvasProps) {
           className="cell"
           data-testid="cell-dot-marker"
           style={cellStyle(row, col)}
-          onClick={() => props.onClick(row, col)}
+          onClick={() => props.onClick(col, row)}
         ></div>
       );
     });

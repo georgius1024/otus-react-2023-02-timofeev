@@ -19,6 +19,7 @@ export const Default: Story = {
     dy: 50,
     color: 'red',
     symbol: '🐷',
+    rejecting: false,
     background: 'silver'
   },
 };
