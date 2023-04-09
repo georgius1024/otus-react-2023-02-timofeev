@@ -1,0 +1,18 @@
+.canvas {
+  position: relative;
+  outline: 4px solid #ccc;
+  outline-offset: 2px;
+  background-color: #333;
+  color: #ccc;
+  overflow: hidden;
+  .cell {
+    position: absolute;
+    background-color: #ccc;
+    border-radius: 100%;
+    transition: 200ms ease;
+    &:hover {
+      background-color: #aaa;
+      transform: scale(2);
+    }
+  }
+}
