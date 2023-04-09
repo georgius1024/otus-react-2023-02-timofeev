@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "@/components/Canvas.scss";
 type clickHandler = (col: number, row: number) => void;
 type CanvasProps = {
