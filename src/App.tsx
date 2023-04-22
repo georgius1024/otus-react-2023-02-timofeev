@@ -4,19 +4,9 @@ import Palette from "@/components/Palette";
 import Canvas from "@/components/Canvas";
 import Node from "@/components/Node";
 
-type Sample = {
-  color: string;
-  symbol: string;
-};
-type StateSample = Sample | null;
-type ChartNode = {
-  col: number;
-  row: number;
-  color: string;
-  symbol: string;
-};
-type Chart = ChartNode[];
-type ChartStateNode = ChartNode | null;
+import type { Sample, StateSample, ChartNode, Chart, ChartStateNode } from "./types";
+
+
 const DELTA = 80;
 function App() {
   const [currentSample, setSample] = useState<StateSample>(null);
