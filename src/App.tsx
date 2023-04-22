@@ -83,7 +83,6 @@ function App(): ReactElement {
     <div className="App">
       <h1>Board game prototype</h1>
       <Palette onClick={paletteClickHandler} />
-      {JSON.stringify(currentSample)}
       <br></br>
       <div className="board">
         <Canvas
