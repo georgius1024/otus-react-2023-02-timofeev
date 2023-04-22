@@ -1,22 +1,28 @@
-import { useState } from "react";
+import { useState, ReactElement, useCallback } from "react";
 import "@/App.scss";
 import Palette from "@/components/Palette";
 import Canvas from "@/components/Canvas";
 import Node from "@/components/Node";
 
-import type { Sample, StateSample, ChartNode, Chart, ChartStateNode } from "./types";
-
+import type {
+  Sample,
+  StateSample,
+  ChartNode,
+  Chart,
+  ChartStateNode,
+} from "./types";
 
 const DELTA = 80;
-function App() {
+function App(): ReactElement {
   const [currentSample, setSample] = useState<StateSample>(null);
   const [chart, updateChart] = useState<Chart>([]);
   const [rejected, setRejected] = useState<ChartStateNode>(null);
 
-  const paletteClickHandler = (sample: StateSample): void => {
+  const paletteClickHandler = useCallback((sample: StateSample): void => {
     setSample(sample);
-  };
-  const canvasClickHandler = (col: number, row: number): void => {
+  }, []);
+
+  const canvasClickHandler = useCallback((col: number, row: number): void => {
     if (currentSample) {
       const updated: ChartNode[] = [
         ...chart.filter((node) => node.col !== col || node.row !== row),
@@ -29,8 +35,9 @@ function App() {
       ];
       updateChart(updated);
     }
-  };
-  const nodeClickHandler = (col: number, row: number): void => {
+  }, [currentSample, chart]);
+
+  const nodeClickHandler = useCallback((col: number, row: number): void => {
     if (currentSample) {
       const clickedNode = chart.find(
         (node) => node.col === col && node.row === row
@@ -57,7 +64,8 @@ function App() {
       ];
       updateChart(updated);
     }
-  };
+  }, [currentSample, chart]);
+
   const nodeProps = (node: ChartNode) => ({
     key: `${node.col}x${node.row}`,
     col: node.col,
@@ -75,6 +83,7 @@ function App() {
     <div className="App">
       <h1>Board game prototype</h1>
       <Palette onClick={paletteClickHandler} />
+      {JSON.stringify(currentSample)}
       <br></br>
       <div className="board">
         <Canvas

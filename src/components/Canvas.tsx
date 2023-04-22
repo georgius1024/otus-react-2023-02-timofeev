@@ -1,4 +1,5 @@
 import "@/components/Canvas.scss";
+import { ReactElement } from "react";
 type clickHandler = (col: number, row: number) => void;
 type CanvasProps = {
   cols: number;
@@ -10,7 +11,7 @@ type CanvasProps = {
 
 const DOT_SIZE = 48;
 
-export default function Canvas(props: CanvasProps) {
+export default function Canvas(props: CanvasProps): ReactElement {
   const canvasStyle = {
     width: `${(props.cols) * props.dx}px`,
     height: `${(props.rows) * props.dy}px`,
@@ -44,6 +45,7 @@ export default function Canvas(props: CanvasProps) {
       .map((_, row) => cols(row))
       .flat();
   };
+
   return (
     <div className="canvas" style={canvasStyle}>
       {rows()}
