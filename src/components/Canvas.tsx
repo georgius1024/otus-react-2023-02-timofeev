@@ -1,5 +1,7 @@
 import "@/components/Canvas.scss";
 import { ReactElement } from "react";
+import Dot from "@/components/Dot";
+
 type clickHandler = (col: number, row: number) => void;
 type CanvasProps = {
   cols: number;
@@ -9,33 +11,25 @@ type CanvasProps = {
   onClick: clickHandler;
 };
 
-const DOT_SIZE = 48;
-
 export default function Canvas(props: CanvasProps): ReactElement {
   const canvasStyle = {
-    width: `${(props.cols) * props.dx}px`,
-    height: `${(props.rows) * props.dy}px`,
-  };
-
-  const cellStyle = (row: number, col: number) => {
-    return {
-      left: `${(col + 0.5) * props.dx - DOT_SIZE / 2}px`,
-      top: `${(row + 0.5) * props.dy - DOT_SIZE / 2}px`,
-      width: `${DOT_SIZE}px`,
-      height: `${DOT_SIZE}px`,
-    };
+    width: `${props.cols * props.dx}px`,
+    height: `${props.rows * props.dy}px`,
   };
 
   const cols = (row: number) => {
     return new Array(props.cols).fill(0).map((_, col) => {
       return (
-        <div
+        <Dot
+          col={col}
+          row={row}
           key={`${row}-${col}`}
-          className="cell"
-          data-testid="cell-dot-marker"
-          style={cellStyle(row, col)}
+          cols={props.cols}
+          rows={props.rows}
+          dx={props.dx}
+          dy={props.dy}
           onClick={() => props.onClick(col, row)}
-        ></div>
+        />
       );
     });
   };
