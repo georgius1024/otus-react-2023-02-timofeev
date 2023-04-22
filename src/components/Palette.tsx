@@ -25,7 +25,7 @@ const NODE_COLORS = [
 const shuffle = (list: string[]) => list.sort(Math.random);
 
 export default function Palette(props: PaletteProps): ReactElement {
-  const [selected, setSelected] = useState<number>(0);
+  const [selected, setSelected] = useState<number>(-1);
 
   const sampleStyle = (sample: Sample, index: number) => ({
     width: `${NODE_SIZE}px`,
