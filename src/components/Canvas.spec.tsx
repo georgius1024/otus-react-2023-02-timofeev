@@ -4,14 +4,15 @@ import Canvas from "@/components/Canvas";
 
 describe("Canvas", () => {
   const clickHandler = vi.fn();
+  let wrapper: any;
   beforeEach(() => {
-    render(<Canvas cols={3} rows={3} dx={50} dy={50} onClick={clickHandler} />);
+    wrapper = render(<Canvas cols={3} rows={3} dx={50} dy={50} onClick={clickHandler} />);
   });
   afterEach(() => {
     clickHandler.mockReset();
   });
   it("renders without errors", () => {
-    screen.debug();
+    expect(wrapper).toMatchSnapshot();
   });
   it("dot clicks emits events", () => {
     const dots = screen.queryAllByTestId("cell-dot-marker");

@@ -4,8 +4,9 @@ import Node from "@/components/Node";
 
 describe("Node", () => {
   const clickHandler = vi.fn();
+  let wrapper: any;
   beforeEach(() => {
-    render(
+    wrapper = render(
       <Node
         col={2}
         row={2}
@@ -23,7 +24,7 @@ describe("Node", () => {
     clickHandler.mockReset();
   });
   it("renders without errors", () => {
-    screen.debug();
+    expect(wrapper).toMatchSnapshot();
   });
   it("dot clicks emits events", async () => {
     const node = await screen.findByText("#");
