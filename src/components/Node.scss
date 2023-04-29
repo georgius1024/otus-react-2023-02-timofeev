@@ -1,0 +1,16 @@
+.node {
+  position: absolute;
+  outline: 1px solid currentColor;
+  outline-offset: 1px;
+  border-radius: 100%;
+  display: flex;
+  user-select: none;
+  align-items: center;
+  justify-content: center;
+  transition: 200ms ease;
+  cursor: pointer;
+  &:hover {
+    background-color: #aaa;
+    transform: scale(1.2);
+  }
+}

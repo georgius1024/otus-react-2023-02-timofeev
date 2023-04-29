@@ -1,0 +1,26 @@
+.palette {
+  display: flex;
+  justify-content: center;
+  .sample {
+    cursor: pointer;
+    margin: 0 12px;
+    outline: 1px solid currentColor;
+    outline-offset: 1px;
+    border-radius: 100%;
+    display: flex;
+    user-select: none;
+    align-items: center;
+    justify-content: center;
+    transition: 200ms ease;
+    outline-offset: 2px;
+    outline-width: 4px;
+    outline-color: #333;
+    outline-style: none;
+
+    &:hover {
+      background-color: #aaa;
+      transform: scale(1.2);
+      filter: drop-shadow(4px 4px 4px #777);
+    }
+  }
+}
