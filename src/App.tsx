@@ -1,6 +1,8 @@
 import { useState, ReactElement, useCallback } from "react";
 import "@/App.scss";
 import Login from "@/components/Login";
+import Forgot from "@/components/Forgot";
+import Register from "@/components/Register";
 import type { User, Logout } from "@/types";
 
 type LayoutProps = {
@@ -12,10 +14,14 @@ const LayoutBuilder =
   (props: LayoutProps): ReactElement => {
     return (
       <div className="App">
+        <p align="right">
+          <a href="javascript:void(0)" onClick={() => logout(null)}>
+            Click here to Logout
+          </a>
+        </p>
         <header>{page}</header>
         <main>{props.children}</main>
         <footer>
-          <a href="javascript:void(0)" onClick={() => logout(null)}>Click here to Logout</a>
           <pre className="wrappable">{JSON.stringify(user)}</pre>
         </footer>
       </div>
@@ -26,9 +32,9 @@ function App(): ReactElement {
   const [page, navigate] = useState("login");
   const [user, login] = useState<User | null>(null);
   const logout = () => {
-    login(null)
-    navigate('login')
-  }
+    login(null);
+    navigate("login");
+  };
   console.log(page, user);
 
   const Layout = LayoutBuilder(page, user, logout);
@@ -41,7 +47,19 @@ function App(): ReactElement {
           <Login navigate={navigate} login={(user) => login(user)} />
         </Layout>
       );
-  }
+    case "forgot":
+      return (
+        <Layout>
+          <Forgot navigate={navigate} />
+        </Layout>
+      );
+      case "register":
+        return (
+          <Layout>
+            <Register navigate={navigate} login={(user) => login(user)} />
+          </Layout>
+        );
+    }
 
   return (
     <div className="App">

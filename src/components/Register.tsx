@@ -1,22 +1,22 @@
 import { Component } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 
 import type { Navigate, Login } from "@/types";
-type LoginProps = {
+type RegisterProps = {
   navigate: Navigate;
   login: Login;
 };
-type LoginState = {
+type RegisterState = {
   email: string;
   password: string;
 }
 
-class LoginPage extends Component<LoginProps, LoginState> {
-  state: LoginState = {
+class RegisterPage extends Component<RegisterProps, RegisterState> {
+  state: RegisterState = {
     email: "", password: ""
   }
-  constructor(props: LoginProps) {
+  constructor(props: RegisterProps) {
     super(props);
     this.setEmail = this.setEmail.bind(this);
     this.setPassword = this.setPassword.bind(this);
@@ -30,23 +30,23 @@ class LoginPage extends Component<LoginProps, LoginState> {
   }
   submit(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+    createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
       .then((userCredential) => {
         this.props.login(userCredential.user)
         this.props.navigate('home')
-        alert("Welcome back");
+        alert("Thank you for registration");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        alert(`Can\'t login: ${errorMessage}`);
+        alert("Thank you for registration");
       });    
   }
   render() {
     return (
-      <form name="login">
-      <h1>Login</h1>
+      <form name="register">
+      <h1>Register</h1>
       <input
         value={this.state.email}
         type="email"
@@ -61,12 +61,11 @@ class LoginPage extends Component<LoginProps, LoginState> {
       />
       <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
       <button type="button" onClick={this.submit}>
-        Login
+        Register
       </button>
-      <a href="javascript:void(0)" onClick={() => this.props.navigate('register')}>Click to register</a>
     </form>
     );
   }
 }
 
-export default LoginPage;
+export default RegisterPage;
