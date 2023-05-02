@@ -1,5 +1,6 @@
 import { Component } from "react";
 import TodoForm from "@/components/TodoForm";
+import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
 import { fetchTodos, addTodo} from '@/services/todos'
 type TodoPageProps = {
@@ -10,9 +11,11 @@ type TodoPageState = {
 };
 
 class TodosPage extends Component<TodoPageProps, TodoPageState> {
+  state: TodoPageState = {
+    todos: []
+  }
   constructor(props: TodoPageProps) {
     super(props);
-    this.setState({ todos: [] })
     this.addTodo = this.addTodo.bind(this);
   }
   componentDidMount() {
@@ -31,7 +34,8 @@ class TodosPage extends Component<TodoPageProps, TodoPageState> {
     return (
       <>
         <h1>Todos</h1>
-        {JSON.stringify(this.state)}
+        <TodoList todos={this.state.todos}/>
+        
         <TodoForm user={this.props.user} onAdd={this.addTodo} />
       </>
     );
