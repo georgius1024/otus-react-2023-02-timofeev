@@ -1,11 +1,39 @@
-#root {
-  width: 100vw;
-  min-height: 100vh;
+.header {
+  background-color: darkblue;
+  color: #fff;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0;
+  a {
+    color: #fff;
+  }
+  .section {
+    min-width: 240px;
+    padding: 32px;
+    display: flex;
+  }
+  .section-1, .section-2, .section-3 {
+    width: 33.33%;
+  }
+  .section-1 {
+    justify-content: flex-start;
+  }
+  .section-2 {
+    justify-content: center;
+  }
+  .section-3 {
+    justify-content: flex-end;
+  }
 }
 
+.footer {
+  background-color: darkblue;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 32px;
+  
+}
 .wrappable {
   max-width: 360px;
   text-overflow: ellipsis;

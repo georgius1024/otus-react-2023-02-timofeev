@@ -1,32 +1,11 @@
 import { useState, ReactElement, useCallback } from "react";
 import "@/App.scss";
+import LayoutBuilder from "@/components/Layout";
 import Login from "@/components/Login";
 import Forgot from "@/components/Forgot";
 import Register from "@/components/Register";
+import Todos from "@/components/Todos";
 import type { User, Logout } from "@/types";
-
-type LayoutProps = {
-  children: React.ReactNode;
-};
-
-const LayoutBuilder =
-  (page: string, user: User | null, logout: Logout): any =>
-  (props: LayoutProps): ReactElement => {
-    return (
-      <div className="App">
-        <p align="right">
-          <a href="javascript:void(0)" onClick={() => logout(null)}>
-            Click here to Logout
-          </a>
-        </p>
-        <header>{page}</header>
-        <main>{props.children}</main>
-        <footer>
-          <pre className="wrappable">{JSON.stringify(user)}</pre>
-        </footer>
-      </div>
-    );
-  };
 
 function App(): ReactElement {
   const [page, navigate] = useState("login");
@@ -37,10 +16,10 @@ function App(): ReactElement {
   };
   console.log(page, user);
 
-  const Layout = LayoutBuilder(page, user, logout);
+  const Layout = LayoutBuilder(page, user, logout, navigate );
   switch (page) {
     case "home":
-      return <Layout></Layout>;
+      return <Layout><Todos user={user}/></Layout>;
     case "login":
       return (
         <Layout>

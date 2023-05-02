@@ -63,7 +63,6 @@ class LoginPage extends Component<LoginProps, LoginState> {
       <button type="button" onClick={this.submit}>
         Login
       </button>
-      <a href="javascript:void(0)" onClick={() => this.props.navigate('register')}>Click to register</a>
     </form>
     );
   }
