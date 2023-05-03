@@ -3,7 +3,7 @@ import { Component } from "react";
 import type { Todo } from "@/types";
 type TodoListProps = {
   todos: Todo[] | null
-  // onChange: (todo: Todo) => void
+  onCompleted: (todo: Todo) => void
 };
 
 type TodoListState = {
@@ -22,7 +22,7 @@ class TodoList extends Component<TodoListProps, TodoListState> {
         <ul>
           {this.props.todos.map(todo => {
             return (
-              <li key={todo.id}>{todo.name}</li>
+              <li onClick={() => this.props.onCompleted(todo)} key={todo.id}>{todo.name}</li>
             )
           })}
         </ul>

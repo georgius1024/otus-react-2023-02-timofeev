@@ -38,18 +38,17 @@ class ForgotPage extends Component<ForgotProps, ForgotState> {
   render() {
     return (
       <form name="forgot">
-      <h1>Restore password</h1>
-      <input
-        value={this.state.email}
-        type="email"
-        name="email"
-        onInput={this.setEmail}
-      />
-      <button type="button" onClick={this.submit}>
-        Restore
-      </button>
-      <a href="javascript:void(0)" onClick={() => this.props.navigate('register')}>Click to register</a>
-    </form>
+        <h1>Restore password</h1>
+        <input
+          value={this.state.email}
+          type="email"
+          name="email"
+          onInput={this.setEmail}
+        />
+        <button type="button" onClick={this.submit}>
+          Restore
+        </button>
+      </form>
     );
   }
 }

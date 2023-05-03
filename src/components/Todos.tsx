@@ -2,7 +2,7 @@ import { Component } from "react";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
-import { fetchTodos, addTodo} from '@/services/todos'
+import { fetchTodos, addTodo, completeTodo} from '@/services/todos'
 type TodoPageProps = {
   user: User;
 };
@@ -17,6 +17,7 @@ class TodosPage extends Component<TodoPageProps, TodoPageState> {
   constructor(props: TodoPageProps) {
     super(props);
     this.addTodo = this.addTodo.bind(this);
+    this.completed = this.completed.bind(this);
   }
   componentDidMount() {
     fetchTodos(this.props.user).then(todos => this.setState({ todos }))
@@ -30,11 +31,21 @@ class TodosPage extends Component<TodoPageProps, TodoPageState> {
       }
     })
   }
+  async completed(input: Todo) {
+    await completeTodo(input)
+    this.setState(state => {
+      return {
+        ...state,
+        todos: state.todos.filter(e => e.id !== input.id)
+      }
+    })
+    alert('Item deleted')
+  }
   render() {
     return (
       <>
         <h1>Todos</h1>
-        <TodoList todos={this.state.todos}/>
+        <TodoList todos={this.state.todos} onCompleted={this.completed}/>
         
         <TodoForm user={this.props.user} onAdd={this.addTodo} />
       </>
