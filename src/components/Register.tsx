@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -12,7 +12,7 @@ type RegisterState = {
   password: string;
 }
 
-class RegisterPage extends Component<RegisterProps, RegisterState> {
+class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
   state: RegisterState = {
     email: "", password: ""
   }
@@ -41,29 +41,29 @@ class RegisterPage extends Component<RegisterProps, RegisterState> {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
         alert("Thank you for registration");
-      });    
+      });
   }
   render() {
     return (
       <form name="register">
-      <h1>Register</h1>
-      <input
-        value={this.state.email}
-        type="email"
-        name="email"
-        onInput={this.setEmail}
-      />
-      <label>Password</label>
-      <input
-        value={this.state.password}
-        type="password"
-        onInput={this.setPassword}
-      />
-      <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
-      <button type="button" onClick={this.submit}>
-        Register
-      </button>
-    </form>
+        <h1>Register</h1>
+        <input
+          value={this.state.email}
+          type="email"
+          name="email"
+          onInput={this.setEmail}
+        />
+        <label>Password</label>
+        <input
+          value={this.state.password}
+          type="password"
+          onInput={this.setPassword}
+        />
+        <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
+        <button type="button" onClick={this.submit}>
+          Register
+        </button>
+      </form>
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 
@@ -12,7 +12,7 @@ type LoginState = {
   password: string;
 }
 
-class LoginPage extends Component<LoginProps, LoginState> {
+class LoginPage extends PureComponent<LoginProps, LoginState> {
   state: LoginState = {
     email: "", password: ""
   }
@@ -41,29 +41,29 @@ class LoginPage extends Component<LoginProps, LoginState> {
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
         alert(`Can\'t login: ${errorMessage}`);
-      });    
+      });
   }
   render() {
     return (
       <form name="login">
-      <h1>Login</h1>
-      <input
-        value={this.state.email}
-        type="email"
-        name="email"
-        onInput={this.setEmail}
-      />
-      <label>Password</label>
-      <input
-        value={this.state.password}
-        type="password"
-        onInput={this.setPassword}
-      />
-      <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
-      <button type="button" onClick={this.submit}>
-        Login
-      </button>
-    </form>
+        <h1>Login</h1>
+        <input
+          value={this.state.email}
+          type="email"
+          name="email"
+          onInput={this.setEmail}
+        />
+        <label>Password</label>
+        <input
+          value={this.state.password}
+          type="password"
+          onInput={this.setPassword}
+        />
+        <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
+        <button type="button" onClick={this.submit}>
+          Login
+        </button>
+      </form>
     );
   }
 }

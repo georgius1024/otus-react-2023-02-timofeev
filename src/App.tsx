@@ -19,7 +19,9 @@ function App(): ReactElement {
   const Layout = LayoutBuilder(page, user, logout, navigate );
   switch (page) {
     case "home":
-      return <Layout><Todos user={user}/></Layout>;
+      if (user) {
+        return <Layout><Todos user={user}/></Layout>;
+      }
     case "login":
       return (
         <Layout>

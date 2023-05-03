@@ -1,4 +1,4 @@
-import { useState, ReactElement, useCallback } from "react";
+import { ReactElement } from "react";
 import "@/App.scss";
 import type { User, Logout, Navigate } from "@/types";
 

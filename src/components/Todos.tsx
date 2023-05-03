@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
@@ -10,7 +10,7 @@ type TodoPageState = {
   todos: Todo[];
 };
 
-class TodosPage extends Component<TodoPageProps, TodoPageState> {
+class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
   state: TodoPageState = {
     todos: []
   }

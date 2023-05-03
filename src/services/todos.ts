@@ -26,5 +26,5 @@ export async function addTodo(todo: Todo): Promise<Todo> {
 
 export async function completeTodo(todo: Todo): Promise<void> {
   if (!todo?.id) return
-  return updateDoc(doc(db, "todos", todo.id), {...todo, completed: false})
+  return updateDoc(doc(db, "todos", todo.id), {...todo, completed: true})
 }

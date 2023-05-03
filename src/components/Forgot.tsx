@@ -1,8 +1,8 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebase";
 
-import type { Navigate, Login } from "@/types";
+import type { Navigate } from "@/types";
 type ForgotProps = {
   navigate: Navigate;
 };
@@ -10,7 +10,7 @@ type ForgotState = {
   email: string;
 }
 
-class ForgotPage extends Component<ForgotProps, ForgotState> {
+class ForgotPage extends PureComponent<ForgotProps, ForgotState> {
   state: ForgotState = {
     email: ""
   }

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 
 import type { Todo } from "@/types";
 type TodoListProps = {
@@ -9,7 +9,7 @@ type TodoListProps = {
 type TodoListState = {
 }
 
-class TodoList extends Component<TodoListProps, TodoListState> {
+class TodoList extends PureComponent<TodoListProps, TodoListState> {
   constructor(props: TodoListProps) {
     super(props);
     this.setToggleCompleted = this.setToggleCompleted.bind(this);

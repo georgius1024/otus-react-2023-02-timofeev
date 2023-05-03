@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 
 import type { Todo, User } from "@/types";
 type TodoProps = {
@@ -10,7 +10,7 @@ type TodoState = {
   name: string;
 }
 
-class TodoForm extends Component<TodoProps, TodoState> {
+class TodoForm extends PureComponent<TodoProps, TodoState> {
   state: TodoState = {
     name: ""
   }
@@ -25,8 +25,8 @@ class TodoForm extends Component<TodoProps, TodoState> {
   submit(event: React.MouseEvent<HTMLButtonElement>): void {
     event.preventDefault();
     this.props.onAdd({
-      name: this.state.name, 
-      completed: false, 
+      name: this.state.name,
+      completed: false,
       uid: this.props.user.uid || ''
     })
     this.setState({ name: "" });
