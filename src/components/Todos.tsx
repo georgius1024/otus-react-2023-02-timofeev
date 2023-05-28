@@ -29,6 +29,12 @@ class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
       };
     });
   };
+  componentDidUpdate() {
+    console.log("misterious useless action goes here...");
+  }
+  componentWillUnmout() {
+    console.log("misterious useless action goes here...");
+  }
   completed = async (input: Todo): Promise<void> => {
     await completeTodo(input);
     this.setState((state) => {
