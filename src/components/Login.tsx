@@ -1,8 +1,9 @@
 import { PureComponent } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
-
 import type { Navigate, Login } from "@/types";
+import { Page } from "@/types";
+
 type LoginProps = {
   navigate: Navigate;
   login: Login;
@@ -33,7 +34,7 @@ class LoginPage extends PureComponent<LoginProps, LoginState> {
     signInWithEmailAndPassword(auth, this.state.email, this.state.password)
       .then((userCredential) => {
         this.props.login(userCredential.user)
-        this.props.navigate('home')
+        this.props.navigate(Page.home)
         alert("Welcome back");
       })
       .catch((error) => {
@@ -59,7 +60,7 @@ class LoginPage extends PureComponent<LoginProps, LoginState> {
           type="password"
           onInput={this.setPassword}
         />
-        <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
+        <a href="javascript:void(0)" onClick={() => this.props.navigate(Page.forgot)}>Forgot password?</a>
         <button type="button" onClick={this.submit}>
           Login
         </button>

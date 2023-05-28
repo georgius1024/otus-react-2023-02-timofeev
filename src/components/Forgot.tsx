@@ -8,21 +8,17 @@ type ForgotProps = {
 };
 type ForgotState = {
   email: string;
-}
+};
 
 class ForgotPage extends PureComponent<ForgotProps, ForgotState> {
   state: ForgotState = {
-    email: ""
-  }
-  constructor(props: ForgotProps) {
-    super(props);
-    this.setEmail = this.setEmail.bind(this);
-    this.submit = this.submit.bind(this);
-  }
-  setEmail(event: React.ChangeEvent<HTMLInputElement>): void {
+    email: "",
+  };
+  setEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ email: event.target.value });
-  }
-  submit(event: React.MouseEvent<HTMLButtonElement>): void {
+  };
+
+  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     sendPasswordResetEmail(auth, this.state.email)
       .then(() => {
@@ -34,7 +30,12 @@ class ForgotPage extends PureComponent<ForgotProps, ForgotState> {
         console.log(errorCode, errorMessage);
         alert(`Can\'t restore password: ${errorMessage}`);
       });
+  };
+
+  constructor(props: ForgotProps) {
+    super(props);
   }
+
   render() {
     return (
       <form name="forgot">

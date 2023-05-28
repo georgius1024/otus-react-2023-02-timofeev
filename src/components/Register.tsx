@@ -3,6 +3,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
 
 import type { Navigate, Login } from "@/types";
+import { Page } from "@/types";
+
 type RegisterProps = {
   navigate: Navigate;
   login: Login;
@@ -18,22 +20,19 @@ class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
   }
   constructor(props: RegisterProps) {
     super(props);
-    this.setEmail = this.setEmail.bind(this);
-    this.setPassword = this.setPassword.bind(this);
-    this.submit = this.submit.bind(this);
   }
-  setEmail(event: React.ChangeEvent<HTMLInputElement>): void {
+  setEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ email: event.target.value });
   }
-  setPassword(event: React.ChangeEvent<HTMLInputElement>): void {
+  setPassword = (event: React.ChangeEvent<HTMLInputElement>): void  => {
     this.setState({ password: event.target.value });
   }
-  submit(event: React.MouseEvent<HTMLButtonElement>): void {
+  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
       .then((userCredential) => {
         this.props.login(userCredential.user)
-        this.props.navigate('home')
+        this.props.navigate(Page.home)
         alert("Thank you for registration");
       })
       .catch((error) => {
@@ -59,7 +58,7 @@ class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
           type="password"
           onInput={this.setPassword}
         />
-        <a href="javascript:void(0)" onClick={() => this.props.navigate('forgot')}>Forgot password?</a>
+        <a href="javascript:void(0)" onClick={() => this.props.navigate(Page.forgot)}>Forgot password?</a>
         <button type="button" onClick={this.submit}>
           Register
         </button>

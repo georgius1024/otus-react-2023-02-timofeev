@@ -1,4 +1,4 @@
-import { useState, ReactElement, useCallback } from "react";
+import { useState, ReactElement } from "react";
 import "@/App.scss";
 import LayoutBuilder from "@/components/Layout";
 import Login from "@/components/Login";
@@ -6,47 +6,48 @@ import Forgot from "@/components/Forgot";
 import Register from "@/components/Register";
 import Todos from "@/components/Todos";
 import type { User, Logout } from "@/types";
+import { Page } from "@/types";
 
 function App(): ReactElement {
-  const [page, navigate] = useState("login");
-  const [user, login] = useState<User | null>(null);
+  const [page, navigate] = useState<Page>(Page.login);
+  const [user, userLogin] = useState<User | null>(null);
   const logout = () => {
-    login(null);
-    navigate("login");
+    userLogin(null);
+    navigate(Page.login);
   };
-  console.log(page, user);
 
-  const Layout = LayoutBuilder(page, user, logout, navigate );
+  const Layout = LayoutBuilder(page, user, logout, navigate);
   switch (page) {
-    case "home":
+    case Page.home:
+    default:
       if (user) {
-        return <Layout><Todos user={user}/></Layout>;
+        return (
+          <Layout>
+            <Todos user={user} />
+          </Layout>
+        );
+      } else {
+        return <Layout>No page selected</Layout>;
       }
-    case "login":
+    case Page.login:
       return (
         <Layout>
-          <Login navigate={navigate} login={(user) => login(user)} />
+          <Login navigate={navigate} login={(user) => userLogin(user)} />
         </Layout>
       );
-    case "forgot":
+    case Page.forgot:
       return (
         <Layout>
           <Forgot navigate={navigate} />
         </Layout>
       );
-      case "register":
-        return (
-          <Layout>
-            <Register navigate={navigate} login={(user) => login(user)} />
-          </Layout>
-        );
-    }
-
-  return (
-    <div className="App">
-      <h1>HELLO</h1>
-    </div>
-  );
+    case Page.register:
+      return (
+        <Layout>
+          <Register navigate={navigate} login={(user) => userLogin(user)} />
+        </Layout>
+      );
+  }
 }
 
 export default App;
