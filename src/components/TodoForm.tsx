@@ -1,4 +1,4 @@
-import { PureComponent } from "react";
+import { PureComponent, KeyboardEvent } from "react";
 
 import type { Todo, User } from "@/types";
 type TodoProps = {
@@ -17,11 +17,29 @@ class TodoForm extends PureComponent<TodoProps, TodoState> {
   constructor(props: TodoProps) {
     super(props);
   }
+  onClick = (event: KeyboardEvent<Document>): void => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      this.setState({ name: "" });
+    }
+    if (event.key === "Enter") {
+      event.preventDefault();
+      this.submit(null);
+    }
+  };
+  componentDidMount(): void {
+    // @ts-ignore
+    document.addEventListener("keydown", this.onClick);
+  }
+  componentWillUnmount() {
+    // @ts-ignore
+    document.removeEventListener("keydown", this.onClick);
+  }
   setName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ name: event.target.value });
   };
-  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
+  submit = (event: React.MouseEvent<HTMLButtonElement> | null): void => {
+    event?.preventDefault();
     this.props.onAdd({
       name: this.state.name,
       completed: false,
