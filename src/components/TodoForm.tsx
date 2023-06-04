@@ -1,4 +1,4 @@
-import { PureComponent, KeyboardEvent } from "react";
+import { Component, KeyboardEvent } from "react";
 
 import type { Todo, User } from "@/types";
 type TodoProps = {
@@ -10,7 +10,7 @@ type TodoState = {
   name: string;
 };
 
-class TodoForm extends PureComponent<TodoProps, TodoState> {
+class TodoForm extends Component<TodoProps, TodoState> {
   state: TodoState = {
     name: "",
   };
@@ -34,6 +34,20 @@ class TodoForm extends PureComponent<TodoProps, TodoState> {
   componentWillUnmount() {
     // @ts-ignore
     document.removeEventListener("keydown", this.onClick);
+  }
+  componentDidUpdate(prevProps: Readonly<TodoProps>, prevState: Readonly<TodoState>, snapshot?: any): void {
+    if (prevProps.user !== this.props.user) {
+      console.log('user updated - need to fetch something')
+    }
+  }
+  shouldComponentUpdate(nextProps: Readonly<TodoProps>, nextState: Readonly<TodoState>, nextContext: any): boolean {
+    if (nextProps.user !== this.props.user) {
+      return true
+    }
+    if (nextState.name !== this.state.name) {
+      return true
+    }
+    return false
   }
   setName = (event: React.ChangeEvent<HTMLInputElement>): void => {
     this.setState({ name: event.target.value });
