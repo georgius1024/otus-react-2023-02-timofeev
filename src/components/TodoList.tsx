@@ -1,9 +1,10 @@
 import { PureComponent } from "react";
+import { Link } from "react-router-dom";
 
 import type { Todo } from "@/types";
 type TodoListProps = {
   todos: Todo[] | null;
-  onCompleted: (todo: Todo) => void;
+  onRemove: (todo: Todo) => void;
 };
 
 type TodoListState = {};
@@ -15,10 +16,13 @@ class TodoList extends PureComponent<TodoListProps, TodoListState> {
   render() {
     if (this.props.todos) {
       return (
-        <ul>
+        <ul className="todos">
           {this.props.todos.map((todo) => (
-            <li onClick={() => this.props.onCompleted(todo)} key={todo.id}>
+            <li key={todo.id} className={todo.completed ? 'completed' : 'incompleted'}>
+              <span className="remover" onClick={() => this.props.onRemove(todo)}>&times;</span>
+              <Link to={`/${todo.id}`}>
               {todo.name}
+              </Link>
             </li>
           ))}
         </ul>

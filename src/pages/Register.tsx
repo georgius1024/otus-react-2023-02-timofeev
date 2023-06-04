@@ -1,14 +1,13 @@
 import { PureComponent } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/firebase";
-
-import type { Navigate, Login } from "@/types";
-import { Page } from "@/types";
+import { Link } from "react-router-dom";
+import type { Login } from "@/types";
 
 type RegisterProps = {
-  navigate: Navigate;
-  login: Login;
+  register: Login;
 };
+
 type RegisterState = {
   email: string;
   password: string;
@@ -31,8 +30,7 @@ class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
     event.preventDefault();
     createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
       .then((userCredential) => {
-        this.props.login(userCredential.user)
-        this.props.navigate(Page.home)
+        this.props.register(userCredential.user)
         alert("Thank you for registration");
       })
       .catch((error) => {
@@ -58,7 +56,7 @@ class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
           type="password"
           onInput={this.setPassword}
         />
-        <a href="javascript:void(0)" onClick={() => this.props.navigate(Page.forgot)}>Forgot password?</a>
+        <Link to="/forgot">Forgot password?</Link>
         <button type="button" onClick={this.submit}>
           Register
         </button>

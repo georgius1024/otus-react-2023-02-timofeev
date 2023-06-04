@@ -1,0 +1,16 @@
+.todos {
+  list-style-type: none;
+  padding: 0;
+  min-width: 50vw;
+  li {
+    list-style-type: none;
+    margin: 4px 0;
+  }
+  li.completed {
+    text-decoration: line-through;
+  }
+  .remover {
+    float: right;
+    color: red;
+  }
+}

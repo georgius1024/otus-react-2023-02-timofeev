@@ -1,27 +1,24 @@
 import { ReactElement } from "react";
-import "@/App.scss";
 import Header from "@/components/Header";
-import type { User, Logout, Navigate } from "@/types";
-import { Page } from "@/types";
+import type { User, Logout } from "@/types";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
+
 type LayoutBuilderType = (props: LayoutProps) => ReactElement;
+
 const LayoutBuilder =
-  (
-    page: Page,
-    user: User | null,
-    logout: Logout,
-    navigate: Navigate
-  ): LayoutBuilderType =>
+  (user: User | null, logout: Logout): LayoutBuilderType =>
   (props: LayoutProps): ReactElement => {
     return (
-      <>
-        <Header user={user} navigate={navigate} logout={logout} page={page} />
-        <main className="container">{props.children}</main>
+      <div className="layout">
+        <Header user={user} logout={logout} />
+        <main className="main">
+          {props.children}
+        </main>
         <footer className="footer">(c) Diligent student</footer>
-      </>
+      </div>
     );
   };
 

@@ -2,7 +2,8 @@ import { PureComponent } from "react";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
-import { fetchTodos, addTodo, completeTodo } from "@/services/todos";
+import { fetchTodos, addTodo, deleteTodo } from "@/services/todos";
+import "@/pages/Todos.scss";
 type TodoPageProps = {
   user: User;
 };
@@ -35,8 +36,8 @@ class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
   componentWillUnmout() {
     console.log("misterious useless action goes here...");
   }
-  completed = async (input: Todo): Promise<void> => {
-    await completeTodo(input);
+  remove = async (input: Todo): Promise<void> => {
+    await deleteTodo(input);
     this.setState((state) => {
       return {
         ...state,
@@ -46,12 +47,12 @@ class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
     alert("Item deleted");
   };
   render = () => (
-    <>
+    <div>
       <h1>Todos</h1>
-      <TodoList todos={this.state.todos} onCompleted={this.completed} />
+      <TodoList todos={this.state.todos} onRemove={this.remove} />
 
       <TodoForm user={this.props.user} onAdd={this.addTodo} />
-    </>
+    </div>
   );
 }
 
