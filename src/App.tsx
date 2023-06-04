@@ -11,6 +11,7 @@ import Login from "@/pages/Login";
 import Forgot from "@/pages/Forgot";
 import Register from "@/pages/Register";
 import Todos from "@/pages/Todos";
+import TodoPage from "@/pages/TodoPage";
 
 import type { User, Logout } from "@/types";
 
@@ -42,6 +43,16 @@ function App(): ReactElement {
       element: user ? (
         <Layout>
           <Todos user={user} />
+        </Layout>
+      ) : (
+        <Navigate to="/login" />
+      ),
+    },
+    {
+      path: "/:id",
+      element: user ? (
+        <Layout>
+          <TodoPage user={user} />
         </Layout>
       ) : (
         <Navigate to="/login" />
