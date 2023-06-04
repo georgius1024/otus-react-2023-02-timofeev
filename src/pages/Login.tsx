@@ -1,40 +1,32 @@
-import { PureComponent } from "react";
+import { ReactElement, useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "@/firebase";
-import type { Login } from "@/types";
 
-type LoginProps = {
-  login: Login;
-};
+import { useDispatch } from "react-redux";
+import { login } from "@/store/auth";
 
-type LoginState = {
-  email: string;
-  password: string;
-};
+export default function Login(): ReactElement {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-class LoginPage extends PureComponent<LoginProps, LoginState> {
-  state: LoginState = {
-    email: "",
-    password: "",
+  const emailChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
   };
-  constructor(props: LoginProps) {
-    super(props);
-    this.setEmail = this.setEmail.bind(this);
-    this.setPassword = this.setPassword.bind(this);
-    this.submit = this.submit.bind(this);
-  }
-  setEmail(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({ email: event.target.value });
-  }
-  setPassword(event: React.ChangeEvent<HTMLInputElement>): void {
-    this.setState({ password: event.target.value });
-  }
-  submit(event: React.MouseEvent<HTMLButtonElement>): void {
+  const passwordChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setPassword(event.target.value);
+  };
+  const submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, this.state.email, this.state.password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        this.props.login(userCredential.user);
+        const { uid, email, providerData } = userCredential.user;
+        dispatch(login({ uid, email, providerData }));
+        navigate("/");
         alert("Welcome back");
       })
       .catch((error) => {
@@ -43,30 +35,23 @@ class LoginPage extends PureComponent<LoginProps, LoginState> {
         console.log(errorCode, errorMessage);
         alert(`Can\'t login: ${errorMessage}`);
       });
-  }
-  render() {
-    return (
-      <form name="login">
-        <h1>Login</h1>
-        <input
-          value={this.state.email}
-          type="email"
-          name="email"
-          onInput={this.setEmail}
-        />
-        <label>Password</label>
-        <input
-          value={this.state.password}
-          type="password"
-          onInput={this.setPassword}
-        />
-        <Link to="/forgot">Forgot password?</Link>
-        <button type="button" onClick={this.submit}>
-          Login
-        </button>
-      </form>
-    );
-  }
-}
+  };
 
-export default LoginPage;
+  return (
+    <form name="login">
+      <h1>Login</h1>
+      <label>
+        Email
+        <input value={email} type="email" name="email" onInput={emailChanged} />
+      </label>
+      <label>
+        Password
+        <input value={password} type="password" onInput={passwordChanged} />
+      </label>
+      <Link to="/forgot">Forgot password?</Link>
+      <button type="button" onClick={submit}>
+        Login
+      </button>
+    </form>
+  );
+}

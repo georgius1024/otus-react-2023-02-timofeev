@@ -1,68 +1,62 @@
-import { PureComponent } from "react";
+import { ReactElement, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "@/firebase";
-import { Link } from "react-router-dom";
-import type { Login } from "@/types";
 
-type RegisterProps = {
-  register: Login;
-};
+import { useDispatch } from "react-redux";
+import { login } from "@/store/auth";
 
-type RegisterState = {
-  email: string;
-  password: string;
-}
+export default function Register(): ReactElement {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
-  state: RegisterState = {
-    email: "", password: ""
-  }
-  constructor(props: RegisterProps) {
-    super(props);
-  }
-  setEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ email: event.target.value });
-  }
-  setPassword = (event: React.ChangeEvent<HTMLInputElement>): void  => {
-    this.setState({ password: event.target.value });
-  }
-  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const emailChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
+  };
+  const passwordChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setPassword(event.target.value);
+  };
+  const submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        this.props.register(userCredential.user)
+        const { uid, email, providerData } = userCredential.user;
+        dispatch(login({ uid, email, providerData }));
+        navigate("/");
         alert("Thank you for registration");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        alert("Thank you for registration");
+        alert(`Can\'t login: ${errorMessage}`);
       });
-  }
-  render() {
-    return (
-      <form name="register">
-        <h1>Register</h1>
-        <input
-          value={this.state.email}
-          type="email"
-          name="email"
-          onInput={this.setEmail}
-        />
-        <label>Password</label>
-        <input
-          value={this.state.password}
-          type="password"
-          onInput={this.setPassword}
-        />
-        <Link to="/forgot">Forgot password?</Link>
-        <button type="button" onClick={this.submit}>
-          Register
-        </button>
-      </form>
-    );
-  }
+  };
+
+  return (
+    <form name="register">
+      <h1>Register</h1>
+      <label>
+        Email
+        <input value={email} type="email" name="email" onInput={emailChanged} />
+      </label>
+      <label>
+        Password
+        <input value={password} type="password" onInput={passwordChanged} />
+      </label>
+      <Link to="/forgot">Forgot password?</Link>
+      <button type="button" onClick={submit}>
+        Register
+      </button>
+    </form>
+  );
 }
 
-export default RegisterPage;
+type LoginState = {
+  email: string;
+  password: string;
+};

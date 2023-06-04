@@ -1,59 +1,47 @@
-import { PureComponent } from "react";
+import { ReactElement, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
 import { fetchTodos, addTodo, deleteTodo } from "@/services/todos";
+import type { RootState } from '@/store'
 import "@/pages/Todos.scss";
-type TodoPageProps = {
-  user: User;
-};
-type TodoPageState = {
-  todos: Todo[];
-};
 
-class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
-  state: TodoPageState = {
-    todos: [],
+const TodosPage = (): ReactElement => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  const [todos, setTodos] = useState<Todo[] | void>(undefined);
+  useEffect(() => {
+    user && fetchTodos(user).then((todos) => setTodos(todos));
+  }, [user]);
+
+  const todoAdded = async (input: Todo): Promise<void> => {
+    const newTodo  = await addTodo(input);
+    if (todos) {
+      setTodos([...todos, newTodo]);
+    } else {
+      setTodos([newTodo]);
+    }
   };
-  constructor(props: TodoPageProps) {
-    super(props);
-  }
-  componentDidMount() {
-    fetchTodos(this.props.user).then((todos) => this.setState({ todos }));
-  }
-  addTodo = async (input: Todo): Promise<void> => {
-    const newTodo = await addTodo(input);
-    this.setState((state) => {
-      return {
-        ...state,
-        todos: [...state.todos, newTodo],
-      };
-    });
-  };
-  componentDidUpdate() {
-    console.log("misterious useless action goes here...");
-  }
-  componentWillUnmout() {
-    console.log("misterious useless action goes here...");
-  }
-  remove = async (input: Todo): Promise<void> => {
+  const todoRemoved = async (input: Todo): Promise<void> => {
     await deleteTodo(input);
-    this.setState((state) => {
-      return {
-        ...state,
-        todos: state.todos.filter((e) => e.id !== input.id),
-      };
-    });
+    todos && setTodos(todos.filter((e) => e.id !== input.id));
     alert("Item deleted");
   };
-  render = () => (
+  if (typeof todos === "undefined") {
+    return <p>Loading...</p>;
+  }
+  return (
     <div>
       <h1>Todos</h1>
-      <TodoList todos={this.state.todos} onRemove={this.remove} />
+      <TodoList todos={todos} onRemove={todoRemoved} />
 
-      <TodoForm user={this.props.user} onAdd={this.addTodo} />
+      <TodoForm user={user} onAdd={todoAdded} />
     </div>
   );
-}
+};
 
 export default TodosPage;

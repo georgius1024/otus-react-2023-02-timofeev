@@ -6,20 +6,15 @@ type LayoutProps = {
   children: React.ReactNode;
 };
 
-type LayoutBuilderType = (props: LayoutProps) => ReactElement;
 
-const LayoutBuilder =
-  (user: User | null, logout: Logout): LayoutBuilderType =>
-  (props: LayoutProps): ReactElement => {
+const Layout = (props: LayoutProps): ReactElement => {
     return (
       <div className="layout">
-        <Header user={user} logout={logout} />
-        <main className="main">
-          {props.children}
-        </main>
+        <Header />
+        <main className="main">{props.children}</main>
         <footer className="footer">(c) Diligent student</footer>
       </div>
     );
   };
 
-export default LayoutBuilder;
+export default Layout;

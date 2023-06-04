@@ -1,19 +1,21 @@
 import { ReactElement, useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import type { Todo, User } from "@/types";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { fetchTodo, updateTodo } from "@/services/todos";
+import type { RootState } from '@/store'
 import "@/pages/TodoPage.scss";
-type TodoPageProps = {
-  user: User;
-};
 
-const TodoPage = (props: TodoPageProps): ReactElement => {
+const TodoPage = (): ReactElement => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()  
+  const user = useSelector((state: RootState) => state.auth.user)
+
   const { id = "" } = useParams();
   const [todo, setTodo] = useState<Todo | null | void>(undefined);
   useEffect(() => {
-    fetchTodo(props.user, id).then(setTodo);
-  }, [props.user, id]);
+    user && fetchTodo(user, id).then(setTodo);
+  }, [user, id]);
 
   const setName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({ ...todo, name: event.target.value } as Todo);
