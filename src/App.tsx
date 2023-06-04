@@ -16,7 +16,7 @@ function App(): ReactElement {
     navigate(Page.login);
   };
 
-  const Layout = LayoutBuilder(page, user, logout, navigate);
+  const Layout = LayoutBuilder(user, logout, navigate);
   switch (page) {
     case Page.home:
     default:
@@ -38,7 +38,7 @@ function App(): ReactElement {
     case Page.forgot:
       return (
         <Layout>
-          <Forgot navigate={navigate} />
+          <Forgot />
         </Layout>
       );
     case Page.register:

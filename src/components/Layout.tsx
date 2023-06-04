@@ -2,7 +2,6 @@ import { ReactElement } from "react";
 import "@/App.scss";
 import Header from "@/components/Header";
 import type { User, Logout, Navigate } from "@/types";
-import { Page } from "@/types";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -10,7 +9,6 @@ type LayoutProps = {
 type LayoutBuilderType = (props: LayoutProps) => ReactElement;
 const LayoutBuilder =
   (
-    page: Page,
     user: User | null,
     logout: Logout,
     navigate: Navigate
@@ -18,7 +16,7 @@ const LayoutBuilder =
   (props: LayoutProps): ReactElement => {
     return (
       <>
-        <Header user={user} navigate={navigate} logout={logout} page={page} />
+        <Header user={user} navigate={navigate} logout={logout} />
         <main className="container">{props.children}</main>
         <footer className="footer">(c) Diligent student</footer>
       </>

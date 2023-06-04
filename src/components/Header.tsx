@@ -5,7 +5,6 @@ import { Page } from "@/types";
 
 type HeaderProps = {
   user: User | null,
-  page: Page,
   navigate: Navigate,
   logout: Logout,
 };
