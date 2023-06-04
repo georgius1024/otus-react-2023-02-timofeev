@@ -1,7 +1,3 @@
-export enum Page {
-  home, login, forgot, register
-}
-
 export type User = {
   uid: string | null,
   email: string | null,
@@ -15,7 +11,6 @@ export type Todo = {
   completed: boolean;
 }
 
-export type Navigate = (page: Page) => void
-export type Login = (user: User | null) => void
-export type Logout = Login
+export type Login = (user: User) => void
+export type Logout = () => void
 

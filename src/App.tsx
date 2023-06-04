@@ -1,53 +1,79 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useEffect } from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
+
 import "@/App.scss";
 import LayoutBuilder from "@/components/Layout";
-import Login from "@/components/Login";
-import Forgot from "@/components/Forgot";
-import Register from "@/components/Register";
-import Todos from "@/components/Todos";
+import Login from "@/pages/Login";
+import Forgot from "@/pages/Forgot";
+import Register from "@/pages/Register";
+import Todos from "@/pages/Todos";
+
 import type { User, Logout } from "@/types";
-import { Page } from "@/types";
 
 function App(): ReactElement {
-  const [page, navigate] = useState<Page>(Page.login);
   const [user, userLogin] = useState<User | null>(null);
-  const logout = () => {
-    userLogin(null);
-    navigate(Page.login);
+  const redirect = (url: string) => {
+    window.history.pushState({}, "", url);
   };
 
-  const Layout = LayoutBuilder(page, user, logout, navigate);
-  switch (page) {
-    case Page.home:
-    default:
-      if (user) {
-        return (
-          <Layout>
-            <Todos user={user} />
-          </Layout>
-        );
-      } else {
-        return <Layout>No page selected</Layout>;
-      }
-    case Page.login:
-      return (
+  const logout = (): void => {
+    userLogin(null);
+    redirect("/login");
+  };
+  const login = (user: User): void => {
+    userLogin(user);
+    redirect("/");
+  };
+
+  const register = (user: User): void => {
+    userLogin(user);
+    redirect("/");
+  };
+
+  const Layout = LayoutBuilder(user, logout);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: user ? (
         <Layout>
-          <Login navigate={navigate} login={(user) => userLogin(user)} />
+          <Todos user={user} />
         </Layout>
-      );
-    case Page.forgot:
-      return (
+      ) : (
+        <Navigate to="/login" />
+      ),
+    },
+    {
+      path: "/login",
+      element: (
         <Layout>
-          <Forgot navigate={navigate} />
+          <Login login={login} />
         </Layout>
-      );
-    case Page.register:
-      return (
+      ),
+    },
+    {
+      path: "/register",
+      element: (
         <Layout>
-          <Register navigate={navigate} login={(user) => userLogin(user)} />
+          <Register register={register} />
         </Layout>
-      );
-  }
+      ),
+    },
+    {
+      path: "/forgot",
+      element: (
+        <Layout>
+          <Forgot />
+        </Layout>
+      ),
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

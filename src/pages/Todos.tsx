@@ -46,12 +46,12 @@ class TodosPage extends PureComponent<TodoPageProps, TodoPageState> {
     alert("Item deleted");
   };
   render = () => (
-    <>
+    <div>
       <h1>Todos</h1>
       <TodoList todos={this.state.todos} onCompleted={this.completed} />
 
       <TodoForm user={this.props.user} onAdd={this.addTodo} />
-    </>
+    </div>
   );
 }
 

@@ -2,15 +2,11 @@ import { PureComponent } from "react";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@/firebase";
 
-import type { Navigate } from "@/types";
-type ForgotProps = {
-  navigate: Navigate;
-};
 type ForgotState = {
   email: string;
 };
 
-class ForgotPage extends PureComponent<ForgotProps, ForgotState> {
+class ForgotPage extends PureComponent<{}, ForgotState> {
   state: ForgotState = {
     email: "",
   };
@@ -31,10 +27,6 @@ class ForgotPage extends PureComponent<ForgotProps, ForgotState> {
         alert(`Can\'t restore password: ${errorMessage}`);
       });
   };
-
-  constructor(props: ForgotProps) {
-    super(props);
-  }
 
   render() {
     return (

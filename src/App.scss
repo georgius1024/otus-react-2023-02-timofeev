@@ -1,3 +1,16 @@
+.layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  flex-direction: column;
+}
+.main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .header {
   background-color: darkblue;
   color: #fff;
@@ -32,7 +45,6 @@
   display: flex;
   flex-wrap: wrap;
   padding: 16px 32px;
-  
 }
 .wrappable {
   max-width: 360px;
@@ -64,3 +76,4 @@
     transform: translateX(0);
   }
 }
+
