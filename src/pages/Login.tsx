@@ -1,7 +1,7 @@
 import { ReactElement, useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+//import { signInWithEmailAndPassword } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "@/firebase";
+//import { auth } from "@/firebase";
 
 import { useDispatch } from "react-redux";
 import { login } from "@/store/auth";
@@ -20,21 +20,24 @@ export default function Login(): ReactElement {
   ): void => {
     setPassword(event.target.value);
   };
-  const submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const submit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const { uid, email, providerData } = userCredential.user;
-        dispatch(login({ uid, email, providerData }));
-        navigate("/");
-        alert("Welcome back");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        alert(`Can\'t login: ${errorMessage}`);
-      });
+    await dispatch(login({email, password}) as any)
+    navigate("/");
+    alert("Welcome back");
+    // signInWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     const { uid, email, providerData } = userCredential.user;
+    //     dispatch(login({ uid, email, providerData }));
+    //     navigate("/");
+    //     alert("Welcome back");
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     console.log(errorCode, errorMessage);
+    //     alert(`Can\'t login: ${errorMessage}`);
+    //   });
   };
 
   return (

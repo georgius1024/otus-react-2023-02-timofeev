@@ -1,6 +1,6 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
@@ -9,9 +9,12 @@ import type { RootState } from '@/store'
 import "@/pages/Todos.scss";
 
 const TodosPage = (): ReactElement => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+
+  if (!user) {
+    return <Navigate to="/login" />
+  }
 
   const [todos, setTodos] = useState<Todo[] | void>(undefined);
   useEffect(() => {

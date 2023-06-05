@@ -17,7 +17,7 @@ const Header = (): ReactElement => {
       <div className="section section-2">TODOAPP</div>
       <div className="section section-3">
         {user ? (
-          <a onClick={() => dispatch(logout())}>Logout</a>
+          <Link to="/login" onClick={() => dispatch(logout())}>Logout</Link>
         ) : (
           <>
             <Link to="/login">Login</Link>

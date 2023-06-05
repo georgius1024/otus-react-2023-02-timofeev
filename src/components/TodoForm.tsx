@@ -2,7 +2,7 @@ import { PureComponent, KeyboardEvent } from "react";
 
 import type { Todo, User } from "@/types";
 type TodoProps = {
-  user: User | null;
+  user: User | undefined;
   onAdd: (todo: Todo) => void;
 };
 

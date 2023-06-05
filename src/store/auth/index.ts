@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AuthState } from "@/store/auth/types";
 import reducers from "@/store/auth/reducers";
-
-const initialState: AuthState = {
-  user: null,
-};
+import thunks, { login, register, forgot } from "@/store/auth/thunks";
+const initialState: AuthState = {};
 
 export const authSlice = createSlice({
   name: "store/auth",
   initialState,
-  reducers
+  reducers,
+  extraReducers: thunks,
 });
 
-export const { login, logout, store, restore } = authSlice.actions;
+export const { logout, store, restore } = authSlice.actions;
+export { login, register, forgot };
 
 export default authSlice.reducer;

@@ -13,30 +13,23 @@ import Forgot from "@/pages/Forgot";
 import Register from "@/pages/Register";
 import Todos from "@/pages/Todos";
 import TodoPage from "@/pages/TodoPage";
-import type { RootState } from "@/store";
 
 function App(): ReactElement {
-  const user = useSelector((state: RootState) => state.auth.user);
-
   const router = createBrowserRouter([
     {
       path: "/",
-      element: user ? (
+      element: (
         <Layout>
           <Todos />
         </Layout>
-      ) : (
-        <Navigate to="/login" />
       ),
     },
     {
       path: "/:id",
-      element: user ? (
+      element: (
         <Layout>
           <TodoPage />
         </Layout>
-      ) : (
-        <Navigate to="/login" />
       ),
     },
     {
