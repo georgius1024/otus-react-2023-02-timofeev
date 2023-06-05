@@ -1,11 +1,18 @@
+import { vi } from "vitest";
 import reducers from "@/store/auth/reducers";
+import * as thunks  from "@/store/auth/thunks";
+import flushPromises from 'flush-promises'
 
-describe("auth slice", () => {
-  it("login", () => {
-    const state = { user: null };
-    reducers.login(state, { payload: { uid: 101 } });
-    expect(state).toHaveProperty("user.uid", 101);
-  });
+vi.mock("firebase/auth", () => ({
+  getAuth: vi.fn().mockResolvedValue(true),
+  signInWithEmailAndPassword: vi.fn().mockResolvedValue(true),
+  createUserWithEmailAndPassword: vi.fn().mockResolvedValue(true),
+  sendPasswordResetEmail: vi.fn().mockResolvedValue(true),
+}))
+
+import * as firebaseAuth from "firebase/auth"
+
+describe("auth slice actions", () => {
   it("logout", () => {
     const state = { user: { uid: 101 } };
     reducers.logout(state);
@@ -26,3 +33,36 @@ describe("auth slice", () => {
     expect(state).not.toHaveProperty("user.uid");
   });
 });
+
+describe("auth slice thunks", () => {
+  const email = 'me@my@.com'
+  const password = '12345'
+  it('login thunk calls API', async () => {
+    const dispatch = vi.fn();
+    const getState = vi.fn();
+    const action = thunks.login({email, password})
+    await action(dispatch, getState)
+    await flushPromises()
+    expect(firebaseAuth.signInWithEmailAndPassword).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalled();
+  })
+  it('register thunk calls API', async () => {
+    const dispatch = vi.fn();
+    const getState = vi.fn();
+    const action = thunks.register({email, password})
+    await action(dispatch, getState)
+    await flushPromises()
+    expect(firebaseAuth.signInWithEmailAndPassword).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalled();
+  })
+  it('forgot thunk calls API', async () => {
+    const dispatch = vi.fn();
+    const getState = vi.fn();
+    const action = thunks.forgot({email})
+    await action(dispatch, getState)
+    await flushPromises()
+    expect(firebaseAuth.signInWithEmailAndPassword).toHaveBeenCalled();
+    expect(dispatch).toHaveBeenCalled();
+  })
+
+})

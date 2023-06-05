@@ -3638,6 +3638,11 @@ flow-parser@0.*:
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.203.1.tgz#04180e57e6b8b658212bd4371017d11bf917b257"
   integrity sha512-Nw2M8MPP/Zb+yhvmPDEjzkCXLtgyWGKXZjAYOVftm+wIf3xd4FKa7nRI9v67rODs0WzxMbPc8IPs/7o/dyxo/Q==
 
+flush-promises@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/flush-promises/-/flush-promises-1.0.2.tgz#4948fd58f15281fed79cbafc86293d5bb09b2ced"
+  integrity sha512-G0sYfLQERwKz4+4iOZYQEZVpOt9zQrlItIxQAAYAWpfby3gbHrx0osCHz5RLl/XoXevXk0xoN4hDFky/VV9TrA==
+
 for-each@^0.3.3:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/for-each/-/for-each-0.3.3.tgz#69b447e88a0a5d32c3e7084f3f1710034b21376e"
