@@ -11,7 +11,7 @@ export const authSlice = createSlice({
   extraReducers: thunks,
 });
 
-export const { logout, store, restore } = authSlice.actions;
-export { login, register, forgot };
+const { logout, store, restore } = authSlice.actions;
 
+export { logout, store, restore, login, register, forgot };
 export default authSlice.reducer;
