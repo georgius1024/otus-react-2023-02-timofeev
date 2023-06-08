@@ -1,0 +1,66 @@
+.header {
+  background-color: darkblue;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  a {
+    color: #fff;
+  }
+  .section {
+    min-width: 240px;
+    padding: 32px;
+    display: flex;
+  }
+  .section-1, .section-2, .section-3 {
+    width: 33.33%;
+  }
+  .section-1 {
+    justify-content: flex-start;
+  }
+  .section-2 {
+    justify-content: center;
+  }
+  .section-3 {
+    justify-content: flex-end;
+  }
+}
+
+.footer {
+  background-color: darkblue;
+  color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 32px;
+  
+}
+.wrappable {
+  max-width: 360px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.rejecting {
+  animation: 1s ease-in-out rejecting;
+}
+
+@keyframes rejecting {
+  0% {
+    transform: translateX(0);
+  }
+  6.5% {
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+  18.5% {
+    transform: translateX(5px) rotateY(7deg);
+  }
+  31.5% {
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+  43.5% {
+    transform: translateX(2px) rotateY(3deg);
+  }
+  50% {
+    transform: translateX(0);
+  }
+}
