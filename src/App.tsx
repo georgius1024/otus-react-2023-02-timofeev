@@ -1,10 +1,8 @@
-import { useState, ReactElement } from "react";
-import { useSelector } from "react-redux";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate,
-} from "react-router-dom";
+import { useEffect, ReactElement } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { restoreState } from "@/store/actions";
 
 import "@/App.scss";
 import Layout from "@/components/Layout";
@@ -58,6 +56,12 @@ const router = createBrowserRouter([
 ]);
 
 function App(): ReactElement {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(restoreState());
+  }, []);
+
   return <RouterProvider router={router} />;
 }
 

@@ -44,38 +44,15 @@ exports[`App > renders headline 1`] = `
         <main
           class="main"
         >
-          <form
-            name="login"
-          >
-            <h1>
-              Login
-            </h1>
-            <label>
-              Email
-              <input
-                name="email"
-                type="email"
-                value=""
-              />
-            </label>
-            <label>
-              Password
-              <input
-                type="password"
-                value=""
-              />
-            </label>
+          <p>
+            You need to 
             <a
-              href="/forgot"
+              href="/login"
             >
-              Forgot password?
+              login
             </a>
-            <button
-              type="button"
-            >
-              Login
-            </button>
-          </form>
+             in order to use the app
+          </p>
         </main>
         <footer
           class="footer"
@@ -125,38 +102,15 @@ exports[`App > renders headline 1`] = `
       <main
         class="main"
       >
-        <form
-          name="login"
-        >
-          <h1>
-            Login
-          </h1>
-          <label>
-            Email
-            <input
-              name="email"
-              type="email"
-              value=""
-            />
-          </label>
-          <label>
-            Password
-            <input
-              type="password"
-              value=""
-            />
-          </label>
+        <p>
+          You need to 
           <a
-            href="/forgot"
+            href="/login"
           >
-            Forgot password?
+            login
           </a>
-          <button
-            type="button"
-          >
-            Login
-          </button>
-        </form>
+           in order to use the app
+        </p>
       </main>
       <footer
         class="footer"

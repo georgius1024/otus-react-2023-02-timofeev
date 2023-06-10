@@ -8,7 +8,7 @@ import "@/App.scss";
 
 const Header = (): ReactElement => {
   const user = useSelector((state: RootState) => state.auth.user)
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
   return (
     <header className="header">
       <div className="section section-1">
