@@ -1,20 +1,16 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TodoForm from "@/components/TodoForm";
 import TodoList from "@/components/TodoList";
 import type { Todo, User } from "@/types";
 import { fetchTodos, addTodo, deleteTodo } from "@/services/todos";
-import type { RootState } from '@/store'
+import type { RootState } from "@/store";
 import "@/pages/Todos.scss";
 
 const TodosPage = (): ReactElement => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
-
-  if (!user) {
-    return <Navigate to="/login" />
-  }
 
   const [todos, setTodos] = useState<Todo[] | void>(undefined);
   useEffect(() => {
@@ -22,7 +18,7 @@ const TodosPage = (): ReactElement => {
   }, [user]);
 
   const todoAdded = async (input: Todo): Promise<void> => {
-    const newTodo  = await addTodo(input);
+    const newTodo = await addTodo(input);
     if (todos) {
       setTodos([...todos, newTodo]);
     } else {
@@ -34,6 +30,9 @@ const TodosPage = (): ReactElement => {
     todos && setTodos(todos.filter((e) => e.id !== input.id));
     alert("Item deleted");
   };
+  if (!user) {
+    return <p>You need to <Link to="/login">login</Link> in order to use the app</p>
+  }
   if (typeof todos === "undefined") {
     return <p>Loading...</p>;
   }
