@@ -1,9 +1,17 @@
 import { render, screen } from "@testing-library/react";
-
+import { Provider } from "react-redux";
 import App from "@/App";
+
+import { store } from "@/store";
 
 describe("App", () => {
   it("renders headline", () => {
-    expect(render(<App />)).toMatchSnapshot();
+    expect(
+      render(
+        <Provider store={store}>
+          <App />
+        </Provider>
+      )
+    ).toMatchSnapshot();
   });
 });

@@ -5,93 +5,165 @@ exports[`App > renders headline 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <h2>
-        Unexpected Application Error!
-      </h2>
-      <h3
-        style="font-style: italic;"
+      <div
+        class="layout"
       >
-        could not find react-redux context value; please ensure the component is wrapped in a &lt;Provider&gt;
-      </h3>
-      <pre
-        style="padding: 0.5rem; background-color: rgba(200, 200, 200, 0.5);"
-      >
-        Error: could not find react-redux context value; please ensure the component is wrapped in a &lt;Provider&gt;
-    at useReduxContext (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useReduxContext.js:30:11)
-    at useStore (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useStore.js:25:9)
-    at Proxy.useDispatch (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useDispatch.js:21:19)
-    at TodosPage (/home/georgius/projects/OTUS/otus-2023-02-timofeev/src/pages/Todos.tsx:12:20)
-    at renderWithHooks (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:16305:18)
-    at mountIndeterminateComponent (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:20074:13)
-    at beginWork (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:21587:16)
-    at beginWork$1 (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:27426:14)
-    at performUnitOfWork (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:26560:12)
-    at workLoopSync (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:26466:5)
-      </pre>
-      <p>
-        💿 Hey developer 👋
-      </p>
-      <p>
-        You can provide a way better UX than this when your app throws errors by providing your own 
-        <code
-          style="padding: 2px 4px; background-color: rgba(200, 200, 200, 0.5);"
+        <header
+          class="header"
         >
-          ErrorBoundary
-        </code>
-         or
-         
-        <code
-          style="padding: 2px 4px; background-color: rgba(200, 200, 200, 0.5);"
+          <div
+            class="section section-1"
+          >
+            <a
+              href="/"
+            >
+              [LOGO]
+            </a>
+          </div>
+          <div
+            class="section section-2"
+          >
+            TODOAPP
+          </div>
+          <div
+            class="section section-3"
+          >
+            <a
+              href="/login"
+            >
+              Login
+            </a>
+             
+            <a
+              href="/register"
+            >
+              Register
+            </a>
+          </div>
+        </header>
+        <main
+          class="main"
         >
-          errorElement
-        </code>
-         prop on your route.
-      </p>
+          <form
+            name="login"
+          >
+            <h1>
+              Login
+            </h1>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                value=""
+              />
+            </label>
+            <label>
+              Password
+              <input
+                type="password"
+                value=""
+              />
+            </label>
+            <a
+              href="/forgot"
+            >
+              Forgot password?
+            </a>
+            <button
+              type="button"
+            >
+              Login
+            </button>
+          </form>
+        </main>
+        <footer
+          class="footer"
+        >
+          (c) Diligent student
+        </footer>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <h2>
-      Unexpected Application Error!
-    </h2>
-    <h3
-      style="font-style: italic;"
+    <div
+      class="layout"
     >
-      could not find react-redux context value; please ensure the component is wrapped in a &lt;Provider&gt;
-    </h3>
-    <pre
-      style="padding: 0.5rem; background-color: rgba(200, 200, 200, 0.5);"
-    >
-      Error: could not find react-redux context value; please ensure the component is wrapped in a &lt;Provider&gt;
-    at useReduxContext (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useReduxContext.js:30:11)
-    at useStore (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useStore.js:25:9)
-    at Proxy.useDispatch (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-redux/lib/hooks/useDispatch.js:21:19)
-    at TodosPage (/home/georgius/projects/OTUS/otus-2023-02-timofeev/src/pages/Todos.tsx:12:20)
-    at renderWithHooks (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:16305:18)
-    at mountIndeterminateComponent (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:20074:13)
-    at beginWork (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:21587:16)
-    at beginWork$1 (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:27426:14)
-    at performUnitOfWork (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:26560:12)
-    at workLoopSync (/home/georgius/projects/OTUS/otus-2023-02-timofeev/node_modules/react-dom/cjs/react-dom.development.js:26466:5)
-    </pre>
-    <p>
-      💿 Hey developer 👋
-    </p>
-    <p>
-      You can provide a way better UX than this when your app throws errors by providing your own 
-      <code
-        style="padding: 2px 4px; background-color: rgba(200, 200, 200, 0.5);"
+      <header
+        class="header"
       >
-        ErrorBoundary
-      </code>
-       or
-       
-      <code
-        style="padding: 2px 4px; background-color: rgba(200, 200, 200, 0.5);"
+        <div
+          class="section section-1"
+        >
+          <a
+            href="/"
+          >
+            [LOGO]
+          </a>
+        </div>
+        <div
+          class="section section-2"
+        >
+          TODOAPP
+        </div>
+        <div
+          class="section section-3"
+        >
+          <a
+            href="/login"
+          >
+            Login
+          </a>
+           
+          <a
+            href="/register"
+          >
+            Register
+          </a>
+        </div>
+      </header>
+      <main
+        class="main"
       >
-        errorElement
-      </code>
-       prop on your route.
-    </p>
+        <form
+          name="login"
+        >
+          <h1>
+            Login
+          </h1>
+          <label>
+            Email
+            <input
+              name="email"
+              type="email"
+              value=""
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              value=""
+            />
+          </label>
+          <a
+            href="/forgot"
+          >
+            Forgot password?
+          </a>
+          <button
+            type="button"
+          >
+            Login
+          </button>
+        </form>
+      </main>
+      <footer
+        class="footer"
+      >
+        (c) Diligent student
+      </footer>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

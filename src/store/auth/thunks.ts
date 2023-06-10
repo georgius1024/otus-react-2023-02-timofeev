@@ -76,6 +76,7 @@ export default function (builder: ActionReducerMapBuilder<AuthState>) {
     })
     .addCase(forgot.pending, (state: AuthState) => {
       state.busy = true;
+      state.error = undefined;
     })
     .addCase(forgot.fulfilled, (state: AuthState) => {
       state.busy = false;

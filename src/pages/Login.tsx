@@ -22,22 +22,13 @@ export default function Login(): ReactElement {
   };
   const submit = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
     event.preventDefault();
-    await dispatch(login({email, password}) as any)
-    navigate("/");
-    alert("Welcome back");
-    // signInWithEmailAndPassword(auth, email, password)
-    //   .then((userCredential) => {
-    //     const { uid, email, providerData } = userCredential.user;
-    //     dispatch(login({ uid, email, providerData }));
-    //     navigate("/");
-    //     alert("Welcome back");
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(errorCode, errorMessage);
-    //     alert(`Can\'t login: ${errorMessage}`);
-    //   });
+    const { error } = await dispatch(login({email, password}) as any);
+    if (!error) {
+      navigate("/");
+      alert("Welcome back");
+    } else {
+      alert(error.message);
+    }
   };
 
   return (

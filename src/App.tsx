@@ -14,50 +14,50 @@ import Register from "@/pages/Register";
 import Todos from "@/pages/Todos";
 import TodoPage from "@/pages/TodoPage";
 
-function App(): ReactElement {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <Layout>
-          <Todos />
-        </Layout>
-      ),
-    },
-    {
-      path: "/:id",
-      element: (
-        <Layout>
-          <TodoPage />
-        </Layout>
-      ),
-    },
-    {
-      path: "/login",
-      element: (
-        <Layout>
-          <Login />
-        </Layout>
-      ),
-    },
-    {
-      path: "/register",
-      element: (
-        <Layout>
-          <Register />
-        </Layout>
-      ),
-    },
-    {
-      path: "/forgot",
-      element: (
-        <Layout>
-          <Forgot />
-        </Layout>
-      ),
-    },
-  ]);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <Layout>
+        <Todos />
+      </Layout>
+    ),
+  },
+  {
+    path: "/:id",
+    element: (
+      <Layout>
+        <TodoPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <Layout>
+        <Login />
+      </Layout>
+    ),
+  },
+  {
+    path: "/register",
+    element: (
+      <Layout>
+        <Register />
+      </Layout>
+    ),
+  },
+  {
+    path: "/forgot",
+    element: (
+      <Layout>
+        <Forgot />
+      </Layout>
+    ),
+  },
+]);
 
+function App(): ReactElement {
   return <RouterProvider router={router} />;
 }
 

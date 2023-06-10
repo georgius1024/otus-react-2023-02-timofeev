@@ -1,49 +1,38 @@
-import { PureComponent } from "react";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "@/firebase";
+import { ReactElement, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-type ForgotState = {
-  email: string;
-};
+import { useDispatch } from "react-redux";
+import { forgot } from "@/store/auth";
 
-class ForgotPage extends PureComponent<{}, ForgotState> {
-  state: ForgotState = {
-    email: "",
+export default function Forgot(): ReactElement {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("");
+
+  const emailChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
   };
-  setEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ email: event.target.value });
-  };
 
-  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const submit = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
     event.preventDefault();
-    sendPasswordResetEmail(auth, this.state.email)
-      .then(() => {
-        alert("We sent reset password recovery email");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        alert(`Can\'t restore password: ${errorMessage}`);
-      });
+    const { error } = await dispatch(forgot(email) as any);
+    if (!error) {
+      navigate("/");
+      alert("We sent reset password recovery email");
+    } else {
+      alert(error.message);
+    }
   };
 
-  render() {
-    return (
-      <form name="forgot">
-        <h1>Restore password</h1>
-        <input
-          value={this.state.email}
-          type="email"
-          name="email"
-          onInput={this.setEmail}
-        />
-        <button type="button" onClick={this.submit}>
-          Restore
-        </button>
-      </form>
-    );
-  }
+  return (
+    <form name="forgot">
+      <h1>Restore password</h1>
+      <input value={email} type="email" name="email" onInput={emailChanged} />
+      <button type="button" onClick={submit}>
+        Restore
+      </button>
+    </form>
+  );
 }
-
-export default ForgotPage;

@@ -1,6 +1,5 @@
 import { ReactElement } from "react";
 import Header from "@/components/Header";
-import type { User, Logout } from "@/types";
 
 type LayoutProps = {
   children: React.ReactNode;
