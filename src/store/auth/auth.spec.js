@@ -2,6 +2,7 @@ import { vi } from "vitest";
 import reducers from "@/store/auth/reducers";
 import * as thunks  from "@/store/auth/thunks";
 import flushPromises from 'flush-promises'
+import * as firebaseAuth from "firebase/auth"
 
 vi.mock("firebase/auth", () => ({
   getAuth: vi.fn().mockResolvedValue(true),
@@ -10,7 +11,6 @@ vi.mock("firebase/auth", () => ({
   sendPasswordResetEmail: vi.fn().mockResolvedValue(true),
 }))
 
-import * as firebaseAuth from "firebase/auth"
 
 describe("auth slice actions", () => {
   it("logout", () => {
