@@ -1,68 +1,56 @@
-import { PureComponent } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/firebase";
-import { Link } from "react-router-dom";
-import type { Login } from "@/types";
+import { ReactElement, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "@/store/auth";
 
-type RegisterProps = {
-  register: Login;
-};
+export default function Register(): ReactElement {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-type RegisterState = {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const emailChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(event.target.value);
+  };
+  const passwordChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    setPassword(event.target.value);
+  };
+  const submit = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    event.preventDefault();
+    const { error } = await dispatch(register({ email, password }) as any);
+    if (!error) {
+      navigate("/");
+      alert("Thank you for registration");
+    } else {
+      alert(error.message);
+    }
+  };
+
+  return (
+    <form name="register">
+      <h1>Register</h1>
+      <label>
+        Email
+        <input value={email} type="email" name="email" onInput={emailChanged} />
+      </label>
+      <label>
+        Password
+        <input value={password} type="password" onInput={passwordChanged} />
+      </label>
+      <Link to="/forgot">Forgot password?</Link>
+      <button type="button" onClick={submit}>
+        Register
+      </button>
+    </form>
+  );
+}
+
+type LoginState = {
   email: string;
   password: string;
-}
-
-class RegisterPage extends PureComponent<RegisterProps, RegisterState> {
-  state: RegisterState = {
-    email: "", password: ""
-  }
-  constructor(props: RegisterProps) {
-    super(props);
-  }
-  setEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    this.setState({ email: event.target.value });
-  }
-  setPassword = (event: React.ChangeEvent<HTMLInputElement>): void  => {
-    this.setState({ password: event.target.value });
-  }
-  submit = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    createUserWithEmailAndPassword(auth, this.state.email, this.state.password)
-      .then((userCredential) => {
-        this.props.register(userCredential.user)
-        alert("Thank you for registration");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        alert("Thank you for registration");
-      });
-  }
-  render() {
-    return (
-      <form name="register">
-        <h1>Register</h1>
-        <input
-          value={this.state.email}
-          type="email"
-          name="email"
-          onInput={this.setEmail}
-        />
-        <label>Password</label>
-        <input
-          value={this.state.password}
-          type="password"
-          onInput={this.setPassword}
-        />
-        <Link to="/forgot">Forgot password?</Link>
-        <button type="button" onClick={this.submit}>
-          Register
-        </button>
-      </form>
-    );
-  }
-}
-
-export default RegisterPage;
+};

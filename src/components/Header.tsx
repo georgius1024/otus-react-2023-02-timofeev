@@ -1,14 +1,14 @@
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
+import type { RootState } from '@/store'
+import { logout } from '@/store/auth'
+
 import "@/App.scss";
-import type { User, Logout } from "@/types";
 
-type HeaderProps = {
-  user: User | null;
-  logout: Logout;
-};
-
-const Header = (props: HeaderProps): ReactElement => {
+const Header = (): ReactElement => {
+  const user = useSelector((state: RootState) => state.auth.user)
+  const dispatch = useDispatch()  
   return (
     <header className="header">
       <div className="section section-1">
@@ -16,8 +16,8 @@ const Header = (props: HeaderProps): ReactElement => {
       </div>
       <div className="section section-2">TODOAPP</div>
       <div className="section section-3">
-        {props.user ? (
-          <a onClick={() => props.logout()}>Logout</a>
+        {user ? (
+          <Link to="/login" onClick={() => dispatch(logout())}>Logout</Link>
         ) : (
           <>
             <Link to="/login">Login</Link>

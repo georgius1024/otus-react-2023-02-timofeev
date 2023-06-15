@@ -2,7 +2,7 @@ import { PureComponent, KeyboardEvent } from "react";
 
 import type { Todo, User } from "@/types";
 type TodoProps = {
-  user: User;
+  user: User | undefined;
   onAdd: (todo: Todo) => void;
 };
 
@@ -43,7 +43,7 @@ class TodoForm extends PureComponent<TodoProps, TodoState> {
     this.props.onAdd({
       name: this.state.name,
       completed: false,
-      uid: this.props.user.uid || "",
+      uid: this.props?.user?.uid || "",
     });
     this.setState({ name: "" });
   };
